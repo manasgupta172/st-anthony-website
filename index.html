@@ -1198,7 +1198,6 @@
       window.addEventListener('load', () => {
         setTimeout(() => {
           document.getElementById('page-transition').classList.add('hidden');
-          document.getElementById('scroll-video-container').classList.add('visible');
           document.body.classList.add('loaded');
         }, 800);
       });
@@ -1269,6 +1268,8 @@
         isVideoReady = true;
         videoEl.currentTime = 0.001; // Force first frame to draw
         virtualTime = 0.001;
+        // Fade in the video only when it's actually ready
+        document.getElementById('scroll-video-container').classList.add('visible');
       });
 
       requestAnimationFrame(videoTick);
