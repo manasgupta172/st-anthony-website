@@ -1002,6 +1002,15 @@
           </div>
           <a href="https://chatbot-frontend-kappa-flax.vercel.app/" class="cta-btn hero-cta" target="_blank"
             rel="noopener noreferrer">Chat with Ai Now <span>&rarr;</span></a>
+
+          <div class="magnetic-wrapper" id="auto-scroll-magnetic-btn" style="margin: 0; padding: 0;">
+            <div class="gradient-border-wrapper">
+              <button id="auto-scroll-btn" class="final-cta-btn"
+                style="padding: 0.875rem 2rem; font-size: 0.875rem; cursor: pointer; border: none; font-family: inherit;">
+                Auto Scroll Journey
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="bounce-arrow">
@@ -1203,7 +1212,7 @@
       });
 
       // ===================== SCROLL VIDEO =====================
-      const VIDEO_URL = 'background.mp4?v=' + Date.now(); // Bypass browser cache
+      const VIDEO_URL = 'BG video new.mp4';
       const videoEl = document.getElementById('video-fallback');
 
       let targetTime = 0;
@@ -1375,49 +1384,78 @@
         });
       });
 
-      // ===================== MAGNETIC HOVER (Final CTA) =====================
-      const magneticBtn = document.getElementById('magnetic-btn');
-      const gradientWrapper = magneticBtn.querySelector('.gradient-border-wrapper');
+      // ===================== MAGNETIC HOVER =====================
+      const magneticBtns = document.querySelectorAll('.magnetic-wrapper');
 
-      let mBounds;
-      let targetMX = 0;
-      let targetMY = 0;
-      let currentMX = 0;
-      let currentMY = 0;
-      let mIsHovering = false;
-
-      // Only enable magnetic effect on non-touch devices
       if (window.matchMedia("(hover: hover)").matches) {
-        magneticBtn.addEventListener('mouseenter', () => {
-          mBounds = magneticBtn.getBoundingClientRect();
-          mIsHovering = true;
+        magneticBtns.forEach(btn => {
+          const wrapper = btn.querySelector('.gradient-border-wrapper');
+          let bounds, targetX = 0, targetY = 0, currentX = 0, currentY = 0, isHovering = false;
+
+          btn.addEventListener('mouseenter', () => {
+            bounds = btn.getBoundingClientRect();
+            isHovering = true;
+          });
+
+          btn.addEventListener('mousemove', (e) => {
+            targetX = e.clientX - bounds.left - bounds.width / 2;
+            targetY = e.clientY - bounds.top - bounds.height / 2;
+          });
+
+          btn.addEventListener('mouseleave', () => {
+            isHovering = false;
+            targetX = 0;
+            targetY = 0;
+          });
+
+          function render() {
+            currentX = lerp(currentX, targetX, 0.1);
+            currentY = lerp(currentY, targetY, 0.1);
+            if (wrapper) {
+              const scale = isHovering ? 1.05 : 1;
+              wrapper.style.transform = `translate(${currentX * 0.4}px, ${currentY * 0.4}px) scale(${scale})`;
+            }
+            requestAnimationFrame(render);
+          }
+          render();
         });
+      }
 
-        magneticBtn.addEventListener('mousemove', (e) => {
-          targetMX = e.clientX - mBounds.left - mBounds.width / 2;
-          targetMY = e.clientY - mBounds.top - mBounds.height / 2;
-        });
+      // ===================== AUTO SCROLL BUTTON =====================
+      const autoScrollBtn = document.getElementById('auto-scroll-btn');
+      let isAutoScrolling = false;
 
-        magneticBtn.addEventListener('mouseleave', () => {
-          mIsHovering = false;
-          targetMX = 0;
-          targetMY = 0;
-        });
+      window.addEventListener('wheel', () => isAutoScrolling = false, { passive: true });
+      window.addEventListener('touchstart', () => isAutoScrolling = false, { passive: true });
 
-        function renderMagnetic() {
-          // Soft spring physics (lerp)
-          currentMX = lerp(currentMX, targetMX, 0.1);
-          currentMY = lerp(currentMY, targetMY, 0.1);
+      if (autoScrollBtn) {
+        autoScrollBtn.addEventListener('click', () => {
+          if (isAutoScrolling) return;
+          isAutoScrolling = true;
 
-          if (gradientWrapper) {
-            // Apply the magnetic transform and a slight scale for premium feel
-            const scale = mIsHovering ? 1.05 : 1;
-            gradientWrapper.style.transform = `translate(${currentMX * 0.4}px, ${currentMY * 0.4}px) scale(${scale})`;
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const duration = 15000; // 15 seconds to scroll down for buttery smoothness
+          const startY = window.scrollY;
+          const distance = totalHeight - startY;
+          let startTime = null;
+
+          function easeInOutSine(t, b, c, d) {
+            return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
           }
 
-          requestAnimationFrame(renderMagnetic);
-        }
-        renderMagnetic();
+          function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = easeInOutSine(timeElapsed, startY, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration && isAutoScrolling) {
+              requestAnimationFrame(animation);
+            } else {
+              isAutoScrolling = false;
+            }
+          }
+          requestAnimationFrame(animation);
+        });
       }
 
     })();
