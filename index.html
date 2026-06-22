@@ -1476,10 +1476,14 @@
           if (isAutoScrolling) {
             isAutoScrolling = false;
             autoScrollBtn.innerText = "Auto Scroll Journey";
+            document.documentElement.style.scrollBehavior = '';
             return;
           }
           isAutoScrolling = true;
           autoScrollBtn.innerText = "Stop Auto Scroll";
+
+          // Disable CSS smooth scroll to prevent it from conflicting with our JS animation loop
+          document.documentElement.style.scrollBehavior = 'auto';
 
           const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
           const duration = 9500; // 9.5 seconds cinematic slow tour
@@ -1502,6 +1506,8 @@
             } else {
               isAutoScrolling = false;
               autoScrollBtn.innerText = "Auto Scroll Journey";
+              // Restore the default CSS smooth scroll
+              document.documentElement.style.scrollBehavior = '';
             }
           }
           requestAnimationFrame(animation);
