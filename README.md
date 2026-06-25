@@ -1,8 +1,4 @@
-This is perfect. Having your actual GitHub username makes the open-source instructions fully complete.
 
-Here is your finalized README.md with your exact repository links automatically wired in. You can copy this entire block and paste it directly into your GitHub repository to make it look incredibly professional for anyone visiting your profile!
-
-Markdown
 # St. Anthony's AI Chatbot 🏫🤖
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
