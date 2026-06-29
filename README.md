@@ -1,6 +1,6 @@
 
 # St. Anthony's AI Chatbot 🏫🤖
-
+[![LIVE WEBSITE LINK](https://st-anthony-website.vercel.app/)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![Flask](https://img.shields.io/badge/Flask-black?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
