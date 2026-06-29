@@ -1,12 +1,14 @@
 
 # St. Anthony's AI Chatbot 🏫🤖
-[![LIVE WEBSITE LINK](https://st-anthony-website.vercel.app/)
+
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![Flask](https://img.shields.io/badge/Flask-black?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![Gemini API](https://img.shields.io/badge/Google_Gemini-4285F4?logo=google&logoColor=white)](https://aistudio.google.com/)
 
 A fully decoupled, full-stack Artificial Intelligence web application designed to serve as an instant digital assistant for St. Anthony's Sr. Sec. School. The chatbot provides immediate, context-aware answers regarding school admissions, faculty, student council, rules, and history.
+
+LIVE WEBSITE LINK:- https://st-anthony-website.vercel.app/
 
 ## ✨ Features
 * **Custom AI Brain:** Powered by the Google Gemini 3.5 Flash API, tightly constrained to school-specific knowledge using custom system instructions.
